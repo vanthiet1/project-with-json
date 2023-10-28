@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo data</title>
+</head>
+<body>
+    <div class="main">
+        <h2>Show data</h2>
+        <ul id="list-products">
+            <!-- <li id="list"></li> -->
+        </ul>
+    </div>
+</body>
+<script>
+    var productApi = 'http://localhost:3000/products';
+
+    function start(){
+        getProducts(renderProducts);
+    }
+    start();
+
+    //  function
+    function getProducts(callback){
+        fetch(productApi)
+           .then(function(response){
+            return response.json();
+           })
+           .then(callback);
+    }
+
+    function renderProducts(products){
+        var listProducts = document.querySelector("#list-products");
+        // var list = document.getElementById("list");
+        listProducts.innerHTML='';
+
+        products.forEach(function(product) {
+            const listItem = document.createElement("li");
+            listItem.textContent=product.name;
+            listProducts.appendChild(listItem);
+        });
+     }
+</script>
+</html>
